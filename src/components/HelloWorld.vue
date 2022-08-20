@@ -4,7 +4,7 @@
       <video
         id="trainVideo"
         @loadeddata="onLoadedVideo"
-        :src="url"
+        :src="src"
         playsinline
         muted
         type="video/mp4"
@@ -30,10 +30,37 @@
     },
     data: () => {
       return {
-        url,
+        elem: null,
+        src: null,
       };
     },
-    mounted() {},
+    mounted() {
+      this.elem = document.getElementById('trainVideo');
+
+      this.$nextTick(() => {
+        this.elem.addEventListener('canplaythrough', () => {
+          console.log(
+            'バッファリングを止めることなく、' +
+              '動画全体を再生できると思います。'
+          );
+        });
+        this.elem.addEventListener('canplay', () => {
+          console.log(
+            '動画は開始できますが、最後まで再生されるかどうかはわかりません。'
+          );
+        });
+        this.elem.addEventListener('seeking', () => {
+          console.log('動画は新しい位置をシーク中です。');
+        });
+        this.elem.addEventListener('seeked', () => {
+          console.log('動画が探していた再生位置を見つけました。');
+        });
+        this.elem.addEventListener('ratechange', () => {
+          console.log('再生レートが変わりました。');
+        });
+        this.src = url;
+      });
+    },
     methods: {
       play() {
         vd.play();
@@ -43,26 +70,6 @@
       },
       onLoadedVideo(evt) {
         vd = evt.target;
-        vd.addEventListener('canplaythrough', () => {
-          console.log(
-            'バッファリングを止めることなく、' +
-              '動画全体を再生できると思います。'
-          );
-        });
-        vd.addEventListener('canplay', () => {
-          console.log(
-            '動画は開始できますが、最後まで再生されるかどうかはわかりません。'
-          );
-        });
-        vd.addEventListener('seeking', () => {
-          console.log('動画は新しい位置をシーク中です。');
-        });
-        vd.addEventListener('seeked', () => {
-          console.log('動画が探していた再生位置を見つけました。');
-        });
-        vd.addEventListener('ratechange', () => {
-          console.log('再生レートが変わりました。');
-        });
       },
       onClickAdd(n) {
         vd.play();
