@@ -38,8 +38,6 @@
       },
       onLoadedVideo(evt) {
         vd = evt.target;
-        vd.play();
-        vd.pause();
         vd.addEventListener('canplaythrough', () => {
           console.log(
             'バッファリングを止めることなく、' +
