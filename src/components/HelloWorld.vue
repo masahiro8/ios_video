@@ -23,6 +23,7 @@
       <button class="btn" @click="stop">stop</button>
       <button class="btn" @click="decrease">D</button>
       <button class="btn" @click="increase">I</button>
+      <button class="btn" @click="nutral">N</button>
     </div>
   </div>
 </template>
@@ -61,7 +62,7 @@
     },
     methods: {
       init() {
-        this.timer.setInterval(100);
+        this.timer.setInterval(1000);
         this.timer.setCallback((s) => {
           // 減速
           if (this.ctr.decrease) {
@@ -92,6 +93,12 @@
         this.ctr = {
           increase: false,
           decrease: true,
+        };
+      },
+      nutral() {
+        this.ctr = {
+          increase: false,
+          decrease: false,
         };
       },
       async loadData() {

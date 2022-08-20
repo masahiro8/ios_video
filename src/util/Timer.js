@@ -3,7 +3,7 @@ export const Timer = () => {
   let sec = 0;
   let isProcessing = false;
   let isPause = false;
-  let interval = 1000;
+  let interval = 1000; //初期値
   const callbacks = [];
 
   //RAF;
