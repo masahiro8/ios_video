@@ -4,7 +4,7 @@
       <video
         id="trainVideo"
         @loadeddata="onLoadedVideo"
-        :src="`./video/train.mp4`"
+        :src="url"
         playsinline
         muted
         type="video/mp4"
@@ -21,14 +21,19 @@
 
 <script>
   let vd = null;
+  const url =
+    'https://storage.cloud.google.com/bkm_tmp/train_simulator/video/train.mp4?authuser=2&_ga=2.231403293.-326100595.1657302146&_gac=1.213460582.1657302146.CjwKCAjwq5-WBhB7EiwAl-HEkj3CeXr2A_isEI2c0_xz7JGg7LRI7wwxo2ot8eiYz84cxgavogXobBoCOxMQAvD_BwE';
   export default {
     name: 'HelloWorld',
     props: {
       msg: String,
     },
     data: () => {
-      return {};
+      return {
+        url,
+      };
     },
+    mounted() {},
     methods: {
       play() {
         vd.play();
